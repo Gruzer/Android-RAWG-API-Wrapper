@@ -14,7 +14,6 @@
 
 package com.ekn.gruzer.rawgapiexample.data.remote
 
-import android.util.Log
 import com.ekn.gruzer.rawg.entity.Game
 import com.ekn.gruzer.rawg.entity.GameSingle
 import com.ekn.gruzer.rawg.network.RawgServiceApi
@@ -24,22 +23,11 @@ import com.ekn.gruzer.rawgapiexample.data.remote.contract.RemoteSource
 
 class RemoteSourceImpl(private val service: RawgServiceApi) : RemoteSource {
 
-    init {
-        Log.d("myLog", "RemoteSource init")
-    }
-
     override suspend fun getGames(dates: String): RawgApiResult<RawgData<List<Game>>> {
-        val response = service.getListOfGames(dates = dates)
-        Log.d("myLog", "RemoteSource response = $response")
-        return response
+        return service.getListOfGames(dates = dates)
     }
 
     override suspend fun fetchGameDetails(id: String): RawgApiResult<GameSingle> {
-        val response = service.getDetailsOfGame(id = id)
-        Log.d("myLog", "RemoteSource response = $response")
-        return response
-
+        return service.getDetailsOfGame(id = id)
     }
-
-
 }

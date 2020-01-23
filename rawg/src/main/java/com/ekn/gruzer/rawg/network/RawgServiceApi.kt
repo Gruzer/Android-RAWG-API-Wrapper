@@ -362,7 +362,6 @@ interface RawgServiceApi {
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.rawg.io")
                 .addCallAdapterFactory(RawgCallAdapterFactory())
-                //.addConverterFactory(MoshiConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             return retrofit.create(RawgServiceApi::class.java)

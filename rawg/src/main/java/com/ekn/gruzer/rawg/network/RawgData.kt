@@ -29,18 +29,3 @@ data class RawgData<T>(
     var result: T
 )
 
-
-/*
-
-@JsonClass(generateAdapter = true)
-data class ServiceResult(
-    @Json(name = "count")
-    val count: Int,
-    @Json(name = "next")
-    val next: String?,
-    @Json(name = "previous")
-    var prev: String?,
-    @Json(name = "results")
-    var result: List<Game>
-)
-*/

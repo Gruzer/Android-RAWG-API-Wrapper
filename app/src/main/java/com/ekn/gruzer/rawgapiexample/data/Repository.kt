@@ -17,8 +17,6 @@ import com.ekn.gruzer.rawg.network.*
 
 abstract class Repository<R> {
 
-
-
      fun handleResult(response: RawgApiResult<R>) = when (response) {
         is RawgApiResult.Success ->handleSuccess(response.data)
         is RawgApiResult.Failure -> handleErrorState(response.toString())
