@@ -11,6 +11,16 @@ RAGW API Docs Avalible <a href ="https://api.rawg.io/docs/">here.</a>
 https://api.rawg.io/docs/
 `````
 
+# Download
+add this line to build.gradle
+```gradle
+dependencies {
+	implementation 'com.ekn.gruzer.rawg:rawgapiwrapper:0.1.0'
+}
+
+
+```
+
 # Simple Usage example
 
 wrapper based on retrofit 2 and coroutines 
