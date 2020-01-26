@@ -45,9 +45,9 @@ class MainViewModel(private val repository: GameRepo) : ViewModel() {
 
 
     private fun getGames(dates: String) {
-        if (_viewState.value !is MainViewState.ShowData)
-            viewModelScope.launch {
-                _viewState.postValue(MainViewState.IsLoading)
+        if (_viewState.value == null)
+            viewModelScope.launch(Dispatchers.Main) {
+                _viewState.value = MainViewState.IsLoading
                 performRequest(dates)
             }
     }
@@ -60,6 +60,7 @@ class MainViewModel(private val repository: GameRepo) : ViewModel() {
 
 
     private suspend fun performRequest(dates: String) = withContext(Dispatchers.IO) {
+        delay(5000)
         val result = repository.getGames(dates)
         withContext(Dispatchers.Main) { _viewState.value = MainViewState.IsDoneLoading }
         handleResult(result)

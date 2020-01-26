@@ -40,8 +40,9 @@ class DetailsViewModel(private val repository: GameSingleRepo) : ViewModel() {
     }
 
     private fun getDetails(gameID: String) {
-        if (_viewState.value !is DetailsViewState.ShowData) {
-            viewModelScope.launch {
+        if (_viewState.value == null) {
+            viewModelScope.launch(Dispatchers.Main) {
+                _viewState.value = DetailsViewState.isLOading
                 performRequest(gameID)
             }
         }
@@ -50,7 +51,7 @@ class DetailsViewModel(private val repository: GameSingleRepo) : ViewModel() {
     private suspend fun performRequest(gameID: String) = withContext(Dispatchers.IO)
     {
         val result = repository.fetchGameDetails(gameID)
-        withContext(Dispatchers.Main){_viewState.value = DetailsViewState.isDoneLoading}
+        withContext(Dispatchers.Main) { _viewState.value = DetailsViewState.isDoneLoading }
         handleResult(result)
 
     }
