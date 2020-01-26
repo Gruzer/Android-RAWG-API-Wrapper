@@ -12,22 +12,30 @@
  *
  */
 
-package com.ekn.gruzer.rawgapiexample.di.mainview
+package com.ekn.gruzer.rawgapiexample.di.application
 
 import com.ekn.gruzer.rawgapiexample.data.contracts.GameRepo
+import com.ekn.gruzer.rawgapiexample.data.contracts.GameSingleRepo
 import com.ekn.gruzer.rawgapiexample.data.remote.contract.RemoteSource
+import com.ekn.gruzer.rawgapiexample.data.repository.GameSingleRepository
 import com.ekn.gruzer.rawgapiexample.data.repository.GamesRepository
-import com.ekn.gruzer.rawgapiexample.di.MainScreenScope
+import com.ekn.gruzer.rawgapiexample.di.ApplicationScope
 import dagger.Module
 import dagger.Provides
 
 @Module
-class GameRepositoryModule {
+class RepositoryManagerModule {
 
-
-    @MainScreenScope
+    @ApplicationScope
     @Provides
-    fun provideRepository(remoteSource: RemoteSource): GameRepo {
+    fun provideGameRepository(remoteSource: RemoteSource): GameRepo {
         return GamesRepository(remoteSource)
     }
+
+    @ApplicationScope
+    @Provides
+    fun provideGameSingleRepository(remoteSource: RemoteSource): GameSingleRepo {
+        return GameSingleRepository(remoteSource)
+    }
+
 }

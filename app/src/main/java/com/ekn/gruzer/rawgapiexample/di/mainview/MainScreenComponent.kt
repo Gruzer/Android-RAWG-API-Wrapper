@@ -19,7 +19,7 @@ import com.ekn.gruzer.rawgapiexample.ui.main.MainFragment
 import dagger.Subcomponent
 
 @MainScreenScope
-@Subcomponent(modules = [GameRepositoryModule::class, MainScreenViewModelModule::class])
+@Subcomponent(modules = [MainScreenViewModelModule::class])
 interface MainScreenComponent {
     fun inject(fragment: MainFragment)
 }

@@ -18,25 +18,21 @@ import com.ekn.gruzer.rawgapiexample.RawgApplication
 import com.ekn.gruzer.rawgapiexample.di.ApplicationScope
 import com.ekn.gruzer.rawgapiexample.di.detailview.DetailScreenComponent
 import com.ekn.gruzer.rawgapiexample.di.detailview.DetailedScreenViewModelModule
-import com.ekn.gruzer.rawgapiexample.di.detailview.GameSingleRepositoryModule
-import com.ekn.gruzer.rawgapiexample.di.mainview.GameRepositoryModule
 import com.ekn.gruzer.rawgapiexample.di.mainview.MainScreenComponent
 import com.ekn.gruzer.rawgapiexample.di.mainview.MainScreenViewModelModule
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [NetworkSourceModule::class, RemoteSourceModule::class])
+@Component(modules = [NetworkSourceModule::class, RemoteSourceModule::class, RepositoryManagerModule::class])
 interface ApplicationComponent {
 
     fun inject(rawgApplication: RawgApplication)
 
     fun provideDetailScreenComponent(
-        gameSingleRepositoryModule: GameSingleRepositoryModule,
         detailedScreenViewModelModule: DetailedScreenViewModelModule
     ): DetailScreenComponent
 
     fun provideMainScreenComponent(
-        gameRepositoryModule: GameRepositoryModule,
         mainScreenViewModelModule: MainScreenViewModelModule
     ): MainScreenComponent
 

@@ -15,6 +15,7 @@
 package com.ekn.gruzer.rawgapiexample.ui.details
 
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Html
 import androidx.fragment.app.Fragment
@@ -28,7 +29,6 @@ import com.ekn.gruzer.rawg.entity.GameSingle
 import com.ekn.gruzer.rawgapiexample.R
 import com.ekn.gruzer.rawgapiexample.RawgApplication
 import com.ekn.gruzer.rawgapiexample.di.detailview.DetailedScreenViewModelModule
-import com.ekn.gruzer.rawgapiexample.di.detailview.GameSingleRepositoryModule
 import com.ekn.gruzer.rawgapiexample.ui.details.viewmodel.DetailViewIntent
 import com.ekn.gruzer.rawgapiexample.ui.details.viewmodel.DetailsViewModel
 import com.ekn.gruzer.rawgapiexample.utils.loadImage
@@ -52,16 +52,18 @@ class GameDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context?.let {
-            (it.applicationContext as RawgApplication).appComponent.provideDetailScreenComponent(
-                GameSingleRepositoryModule(), DetailedScreenViewModelModule(this)
-            ).inject(this)
-        }
-
         gameID = args.gameID
         gameTitle = args.gameTitle
         gameImage = args.gameImage
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context?.let {
+            (it.applicationContext as RawgApplication).appComponent.provideDetailScreenComponent(
+                DetailedScreenViewModelModule(this)
+            ).inject(this)
+        }
     }
 
     override fun onCreateView(

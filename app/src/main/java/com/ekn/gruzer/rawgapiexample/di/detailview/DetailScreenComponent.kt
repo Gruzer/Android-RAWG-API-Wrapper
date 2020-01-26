@@ -19,7 +19,7 @@ import com.ekn.gruzer.rawgapiexample.ui.details.GameDetailFragment
 import dagger.Subcomponent
 
 @DetailScreenScope
-@Subcomponent(modules = [DetailedScreenViewModelModule::class, GameSingleRepositoryModule::class])
+@Subcomponent(modules = [DetailedScreenViewModelModule::class])
 interface DetailScreenComponent {
     fun inject(detailFragment: GameDetailFragment)
 }

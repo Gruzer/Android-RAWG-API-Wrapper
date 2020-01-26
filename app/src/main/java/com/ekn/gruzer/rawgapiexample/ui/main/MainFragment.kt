@@ -15,8 +15,8 @@
 package com.ekn.gruzer.rawgapiexample.ui.main
 
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekn.gruzer.rawg.entity.Game
 import com.ekn.gruzer.rawgapiexample.R
 import com.ekn.gruzer.rawgapiexample.RawgApplication
-import com.ekn.gruzer.rawgapiexample.di.mainview.GameRepositoryModule
 import com.ekn.gruzer.rawgapiexample.di.mainview.MainScreenViewModelModule
 import com.ekn.gruzer.rawgapiexample.ui.main.viewmodel.MainViewIntent
 import com.ekn.gruzer.rawgapiexample.ui.main.viewmodel.MainViewModel
@@ -46,6 +45,7 @@ class MainFragment : Fragment(), GamesAdapter.RecycleViewItemClickLister {
     @Inject
     lateinit var viewModel: MainViewModel
 
+
     private val gamesAdapter: GamesAdapter by lazy {
         GamesAdapter(this)
     }
@@ -59,29 +59,24 @@ class MainFragment : Fragment(), GamesAdapter.RecycleViewItemClickLister {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         context?.let {
             (it.applicationContext as RawgApplication).appComponent.provideMainScreenComponent(
-                GameRepositoryModule(), MainScreenViewModelModule(this)
+                MainScreenViewModelModule(this)
             ).inject(this)
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         main_games_rv.apply {
             layoutManager = LinearLayoutManager(this@MainFragment.context)
             adapter = gamesAdapter
         }
         viewModel.viewState.observe(viewLifecycleOwner, Observer { render(it) })
         viewModel.perform(MainViewIntent.FetchFutureRelease)
-
 
     }
 
